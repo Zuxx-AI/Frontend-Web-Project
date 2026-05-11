@@ -3,9 +3,13 @@
 A visually immersive web experience that guides users through the world of philosophy — from ancient Greek thinkers to modern intellectuals.
 
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
+
 ![HTML](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+
 ![CSS](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
+
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
+
 ![Three.js](https://img.shields.io/badge/Three.js-000000?logo=threedotjs&logoColor=white)
 
 ---
