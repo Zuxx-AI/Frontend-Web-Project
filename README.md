@@ -99,7 +99,15 @@ Aletheia/
 
 ## Screenshots
 
-_Coming soon_
+<img width="1893" height="975" alt="image" src="https://github.com/user-attachments/assets/cf823527-3e18-4508-a3f1-3bb0f166d16b" />
+<img width="951" height="598" alt="image" src="https://github.com/user-attachments/assets/994ba380-2763-4d78-8b0c-ba52f6447930" />
+<img width="1100" height="902" alt="image" src="https://github.com/user-attachments/assets/3dcec5a6-b1d6-4587-b74e-affb3d599409" />
+<img width="1874" height="954" alt="image" src="https://github.com/user-attachments/assets/fefea6b1-b248-4693-b118-96cdb4686529" />
+<img width="1047" height="981" alt="image" src="https://github.com/user-attachments/assets/f4197040-5c31-43b1-83f4-149120fcb90a" />
+<img width="1910" height="983" alt="image" src="https://github.com/user-attachments/assets/d7b3a41a-2d47-43a4-bc2d-859eae687883" />
+
+
+
 
 ---
 
