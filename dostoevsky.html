@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aletheia — Dostoevsky</title>
+  <link rel="stylesheet" href="dostoevsky.css">
+  <link rel="preload" href="Assets/Fyodor Dostoevsky.glb" as="fetch" crossorigin>
+  <link rel="preload" href="Assets/Notes from Underground cover.jpeg" as="image">
+  <link rel="preload" href="Assets/Crime and punishment cover.jpeg" as="image">
+  <link rel="preload" href="Assets/The Brothers Karamazov cover.jpeg" as="image">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Cinzel:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="phil-navbar">
+    <a href="index.html" class="phil-nav-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </a>
+    <h2 class="phil-nav-title">Dostoevsky</h2>
+    <button class="phil-nav-btn" id="booksBtn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+      <span>Books</span>
+    </button>
+  </nav>
+
+  <section class="phil-hero">
+    <div class="phil-3d-container" id="modelContainer"></div>
+    <div class="hero-left-desc">
+      <p>&ldquo;Was a Russian novelist, philosopher, and journalist. His literary works explore human psychology in the troubled political, social, and spiritual atmospheres of 19th-century Russia.&rdquo;</p>
+    </div>
+    <div class="hero-right-block">
+      <h1 class="hero-name">Dostoevsky</h1>
+      <p class="hero-quote">&ldquo;The soul is healed by being with children.&rdquo;</p>
+      <p class="hero-quote-alt">&ldquo;Pain and suffering are always inevitable for a large intelligence and a deep heart.&rdquo;</p>
+    </div>
+    <div class="hero-brand-bottom">ALETHEIA</div>
+  </section>
+
+  <section class="phil-quote">
+    <div class="quote-inner">
+      <span class="quote-mark">&ldquo;</span>
+      <p class="quote-text">The mystery of human existence lies not in just staying alive, but in finding something to live for.</p>
+      <span class="quote-author">&mdash; Fyodor Dostoevsky</span>
+    </div>
+  </section>
+
+  <section class="phil-books" id="booksSection">
+    <div class="section-header">
+      <p class="section-tagline">Essential Reading</p>
+      <h2 class="section-title">Books by Dostoevsky</h2>
+    </div>
+    <div class="books-grid">
+      <div class="book-card">
+        <div class="book-cover">
+          <img src="Assets/Notes from Underground cover.jpeg" alt="Notes from Underground">
+        </div>
+        <h3>Notes from Underground</h3>
+        <p>A raw exploration of consciousness, free will, and alienation.</p>
+        <button class="book-read-btn" data-book="underground">Read &rarr;</button>
+      </div>
+      <div class="book-card">
+        <div class="book-cover">
+          <img src="Assets/Crime and punishment cover.jpeg" alt="Crime and Punishment">
+        </div>
+        <h3>Crime and Punishment</h3>
+        <p>Guilt, redemption, and the moral limits of human action.</p>
+        <button class="book-read-btn" data-book="crimeandpunishment">Read &rarr;</button>
+      </div>
+      <div class="book-card">
+        <div class="book-cover">
+          <img src="Assets/The Brothers Karamazov cover.jpeg" alt="The Brothers Karamazov">
+        </div>
+        <h3>The Brothers Karamazov</h3>
+        <p>Faith, doubt, and the struggle between good and evil.</p>
+        <button class="book-read-btn" data-book="karamazov">Read &rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="reader-overlay" id="readerOverlay">
+    <div class="reader-header">
+      <button class="reader-back-btn" id="readerBackBtn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Back</span>
+      </button>
+      <h2 class="reader-title" id="readerTitle">Book</h2>
+      <span class="reader-indicator" id="readerIndicator">1 / 1</span>
+    </div>
+    <div class="reader-viewport">
+      <button class="reader-arrow reader-arrow-left" id="readerPrev" aria-label="Previous">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="reader-page-container">
+        <img class="reader-cover-img" id="readerCoverImg" src="" alt="Book Cover">
+        <div class="reader-chapter" id="readerChapter">
+          <h3 class="chapter-title" id="chapterTitle"></h3>
+          <div class="chapter-text" id="chapterText"></div>
+        </div>
+      </div>
+      <button class="reader-arrow reader-arrow-right" id="readerNext" aria-label="Next">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="dostoevsky.js"></script>
+</body>
+</html>

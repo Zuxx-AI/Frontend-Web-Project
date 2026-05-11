@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aletheia — Philosophy Learning Journey</title>
+  <!-- Main landing page styles (Roman museum luxury theme) -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- Google Fonts: Cinzel (display), Playfair Display (headings), Cormorant Garamond (body) -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Cinzel:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="app">
+
+    <!-- ========== LANDING PAGE ========== -->
+    <section id="landing" class="page active">
+
+      <!-- NAVBAR -->
+      <nav class="navbar">
+        <div class="nav-brand">
+          <span class="brand-icon">Φ</span>
+          <span class="brand-text">Aletheia</span>
+        </div>
+        <ul class="nav-links">
+          <li><a href="#landing" class="nav-link active">Home</a></li>
+          <li><a href="#philosophersSection" class="nav-link">Philosophers</a></li>
+          <li><a href="#howItWorks" class="nav-link">Roadmap</a></li>
+          <li><a href="#footerSection" class="nav-link">About</a></li>
+        </ul>
+        <button class="nav-cta" id="navStartBtn">Begin Journey</button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+
+      <!-- HERO SECTION -->
+      <section class="hero">
+        <iframe 
+          src="book/book.html" 
+          class="book-iframe"
+          title="3D Book Preview"
+          frameborder="0"
+          allowtransparency="true"
+        ></iframe>
+      </section>
+
+      <!-- FEATURED QUOTE BANNER -->
+      <section class="quote-banner">
+        <div class="quote-banner-inner">
+          <div class="golden-line"></div>
+          <blockquote>
+            <span class="big-quote-mark">"</span>
+            <p>Wonder is the beginning of wisdom.</p>
+            <cite>— Socrates</cite>
+          </blockquote>
+          <div class="golden-line"></div>
+        </div>
+      </section>
+
+      <!-- PHILOSOPHERS SECTION -->
+      <section class="philosophers-section" id="philosophersSection">
+        <div class="section-header">
+          <p class="section-tagline">Meet the Minds</p>
+          <h2 class="section-title">The Philosophers</h2>
+          <p class="section-subtitle">
+            Each thinker offers a unique lens to understand life, society, and the self.
+          </p>
+        </div>
+
+        <div class="philosophers-grid">
+
+          <div class="philosopher-card" data-philosopher="socrates">
+            <div class="card-bg-accent"></div>
+            <div class="card-image-wrapper">
+              <img src="Assets/socrates svg.png" alt="Socrates">
+            </div>
+            <div class="card-content">
+              <h3 class="card-name">Socrates</h3>
+              <ul class="card-books">
+                <li>Apology</li>
+                <li>Crito</li>
+                <li>Phaedo</li>
+              </ul>
+              <button class="card-btn" data-target="socrates">
+                <span>Explore</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="philosopher-card" data-philosopher="plato">
+            <div class="card-bg-accent"></div>
+            <div class="card-image-wrapper">
+              <img src="Assets/plato svg.png" alt="Plato">
+            </div>
+            <div class="card-content">
+              <h3 class="card-name">Plato</h3>
+              <ul class="card-books">
+                <li>The Republic</li>
+                <li>Symposium</li>
+              </ul>
+              <button class="card-btn" data-target="plato">
+                <span>Explore</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="philosopher-card" data-philosopher="aristotle">
+            <div class="card-bg-accent"></div>
+            <div class="card-image-wrapper">
+              <img src="Assets/aristotle svg.png" alt="Aristotle">
+            </div>
+            <div class="card-content">
+              <h3 class="card-name">Aristotle</h3>
+              <ul class="card-books">
+                <li>Nicomachean Ethics</li>
+                <li>Politics</li>
+              </ul>
+              <button class="card-btn" data-target="aristotle">
+                <span>Explore</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="philosopher-card" data-philosopher="epictetus">
+            <div class="card-bg-accent"></div>
+            <div class="card-image-wrapper">
+              <img src="Assets/Epictetus svg.png" alt="Epictetus">
+            </div>
+            <div class="card-content">
+              <h3 class="card-name">Epictetus</h3>
+              <ul class="card-books">
+                <li>Enchiridion</li>
+                <li>Discourses</li>
+              </ul>
+              <button class="card-btn" data-target="epictetus">
+                <span>Explore</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="philosopher-card" data-philosopher="seneca">
+            <div class="card-bg-accent"></div>
+            <div class="card-image-wrapper">
+              <img src="Assets/senega svg.png" alt="Seneca">
+            </div>
+            <div class="card-content">
+              <h3 class="card-name">Seneca</h3>
+              <ul class="card-books">
+                <li>Letters from a Stoic</li>
+                <li>On the Shortness of Life</li>
+              </ul>
+              <button class="card-btn" data-target="seneca">
+                <span>Explore</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="philosopher-card" data-philosopher="marcus">
+            <div class="card-bg-accent"></div>
+            <div class="card-image-wrapper">
+              <img src="Assets/marcus surelius svg.png" alt="Marcus Aurelius">
+            </div>
+            <div class="card-content">
+              <h3 class="card-name">Marcus Aurelius</h3>
+              <ul class="card-books">
+                <li>Meditations</li>
+              </ul>
+              <button class="card-btn" data-target="marcus">
+                <span>Explore</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="philosopher-card" data-philosopher="nietzsche">
+            <div class="card-bg-accent"></div>
+            <div class="card-image-wrapper">
+              <img src="Assets/friedrich svg.png" alt="Friedrich Nietzsche">
+            </div>
+            <div class="card-content">
+              <h3 class="card-name">Friedrich Nietzsche</h3>
+              <ul class="card-books">
+                <li>Thus Spoke Zarathustra</li>
+                <li>Beyond Good and Evil</li>
+              </ul>
+              <button class="card-btn" data-target="nietzsche">
+                <span>Explore</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="philosopher-card" data-philosopher="dostoevsky">
+            <div class="card-bg-accent"></div>
+            <div class="card-image-wrapper">
+              <img src="Assets/divuski svg.png" alt="Fyodor Dostoevsky">
+            </div>
+            <div class="card-content">
+              <h3 class="card-name">Fyodor Dostoevsky</h3>
+              <ul class="card-books">
+                <li>Notes from Underground</li>
+                <li>Crime and Punishment</li>
+                <li>The Brothers Karamazov</li>
+              </ul>
+              <button class="card-btn" data-target="dostoevsky">
+                <span>Explore</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="philosopher-card" data-philosopher="kafka">
+            <div class="card-bg-accent"></div>
+            <div class="card-image-wrapper">
+              <img src="Assets/KAFKA SVG.png" alt="Franz Kafka">
+            </div>
+            <div class="card-content">
+              <h3 class="card-name">Franz Kafka</h3>
+              <ul class="card-books">
+                <li>The Metamorphosis</li>
+                <li>The Trial</li>
+                <li>The Castle</li>
+              </ul>
+              <button class="card-btn" data-target="kafka">
+                <span>Explore</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="philosopher-card" data-philosopher="harari">
+            <div class="card-bg-accent"></div>
+            <div class="card-image-wrapper">
+              <img src="Assets/yuval noah svg.png" alt="Yuval Noah Harari">
+            </div>
+            <div class="card-content">
+              <h3 class="card-name">Yuval Noah Harari</h3>
+              <ul class="card-books">
+                <li>Sapiens</li>
+                <li>Homo Deus</li>
+                <li>21 Lessons for the 21st Century</li>
+              </ul>
+              <button class="card-btn" data-target="harari">
+                <span>Explore</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS SECTION -->
+      <section class="how-it-works" id="howItWorks">
+        <div class="section-header">
+          <p class="section-tagline">The Path</p>
+          <h2 class="section-title">How It Works</h2>
+        </div>
+        <div class="steps-container">
+          <div class="step">
+            <div class="step-number">I</div>
+            <div class="step-icon">📖</div>
+            <h3>Read the Story</h3>
+            <p>Begin with Sophie's World — a narrative gateway into philosophical thinking.</p>
+          </div>
+          <div class="step-connector">
+            <svg width="60" height="2" viewBox="0 0 60 2">
+              <line x1="0" y1="1" x2="60" y2="1" stroke="#b8860b" stroke-width="1" stroke-dasharray="4,4"/>
+            </svg>
+          </div>
+          <div class="step">
+            <div class="step-number">II</div>
+            <div class="step-icon">🧠</div>
+            <h3>Discover Your Style</h3>
+            <p>Take a short quiz to uncover your natural philosophical thinking pattern.</p>
+          </div>
+          <div class="step-connector">
+            <svg width="60" height="2" viewBox="0 0 60 2">
+              <line x1="0" y1="1" x2="60" y2="1" stroke="#b8860b" stroke-width="1" stroke-dasharray="4,4"/>
+            </svg>
+          </div>
+          <div class="step">
+            <div class="step-number">III</div>
+            <div class="step-icon">🧭</div>
+            <h3>Follow Your Roadmap</h3>
+            <p>Get a personalized reading path through the great works of philosophy.</p>
+          </div>
+          <div class="step-connector">
+            <svg width="60" height="2" viewBox="0 0 60 2">
+              <line x1="0" y1="1" x2="60" y2="1" stroke="#b8860b" stroke-width="1" stroke-dasharray="4,4"/>
+            </svg>
+          </div>
+          <div class="step">
+            <div class="step-number">IV</div>
+            <div class="step-icon">🏛️</div>
+            <h3>Grow in Wisdom</h3>
+            <p>Track your progress and deepen your understanding, one book at a time.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="footer" id="footerSection">
+        <div class="footer-content">
+          <div class="footer-brand">
+            <span class="brand-icon">Φ</span>
+            <span class="brand-text">Aletheia</span>
+            <p class="footer-tagline">A guided journey through the world of philosophy.</p>
+          </div>
+          <div class="footer-links">
+            <div class="footer-col">
+              <h4>Explore</h4>
+              <a href="#">Philosophers</a>
+              <a href="#">Roadmaps</a>
+              <a href="#">Quiz</a>
+            </div>
+            <div class="footer-col">
+              <h4>Learn</h4>
+              <a href="#">Sophie's World</a>
+              <a href="#">Stoicism</a>
+              <a href="#">Existentialism</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2026 Aletheia. Built for seekers of wisdom.</p>
+        </div>
+      </footer>
+
+    </section>
+
+    <!-- ========== READER PAGE ========== -->
+    <section id="reader" class="page">
+      <div class="reader-header">
+        <button class="reader-back-btn" id="readerBackBtn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <span>Back</span>
+        </button>
+        <h2 class="reader-title" id="readerTitle">Sophie's World</h2>
+        <span class="reader-page-indicator" id="readerPageIndicator">1 / 1</span>
+      </div>
+      <div class="reader-viewport">
+        <button class="reader-arrow reader-arrow-left" id="readerPrev" aria-label="Previous page">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="reader-page-container" id="readerPageContainer">
+          <!-- Cover page (page 0) -->
+          <img class="reader-cover-img" id="readerCoverImg" src="Assets/Sophies_world_cover.jpeg" alt="Sophie's World Cover">
+          <!-- Chapter text (pages 1+) -->
+          <div class="reader-chapter" id="readerChapter">
+            <h3 class="chapter-title" id="chapterTitle"></h3>
+            <div class="chapter-text" id="chapterText"></div>
+          </div>
+        </div>
+        <button class="reader-arrow reader-arrow-right" id="readerNext" aria-label="Next page">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

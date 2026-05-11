@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aletheia — 3D Book</title>
+  <link rel="stylesheet" href="book.css">
+</head>
+<body>
+  <!-- Page navigation buttons (hidden when embedded in landing page iframe) -->
+  <div id="page-nav"></div>
+
+  <!-- Three.js r128 CDN — WebGL 3D rendering engine -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- OrbitControls — mouse drag to rotate, scroll to zoom -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <!-- Main book logic: geometry, textures, animation, interaction -->
+  <script src="book.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aletheia — Nietzsche</title>
+  <link rel="stylesheet" href="nietzsche.css">
+  <link rel="preload" href="Assets/Friedrich Nietzsche.glb" as="fetch" crossorigin>
+  <link rel="preload" href="Assets/Thus Spoke Zarathustra cover.jpeg" as="image">
+  <link rel="preload" href="Assets/Beyond Good and Evil cover.jpeg" as="image">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Cinzel:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="phil-navbar">
+    <a href="index.html" class="phil-nav-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </a>
+    <h2 class="phil-nav-title">Nietzsche</h2>
+    <button class="phil-nav-btn" id="booksBtn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+      <span>Books</span>
+    </button>
+  </nav>
+
+  <section class="phil-hero">
+    <div class="phil-3d-container" id="modelContainer"></div>
+    <div class="hero-left-desc">
+      <p>&ldquo;Was a German philosopher, cultural critic, and philologist whose work has exerted a profound influence on modern intellectual history. He challenged the foundations of Christianity and traditional morality.&rdquo;</p>
+    </div>
+    <div class="hero-right-block">
+      <h1 class="hero-name">Nietzsche</h1>
+      <p class="hero-quote">&ldquo;He who has a why to live can bear almost any how.&rdquo;</p>
+      <p class="hero-quote-alt">&ldquo;Without music, life would be a mistake.&rdquo;</p>
+    </div>
+    <div class="hero-brand-bottom">ALETHEIA</div>
+  </section>
+
+  <section class="phil-quote">
+    <div class="quote-inner">
+      <span class="quote-mark">&ldquo;</span>
+      <p class="quote-text">That which does not kill us makes us stronger.</p>
+      <span class="quote-author">&mdash; Friedrich Nietzsche</span>
+    </div>
+  </section>
+
+  <section class="phil-books" id="booksSection">
+    <div class="section-header">
+      <p class="section-tagline">Essential Reading</p>
+      <h2 class="section-title">Books by Nietzsche</h2>
+    </div>
+    <div class="books-grid">
+      <div class="book-card">
+        <div class="book-cover">
+          <img src="Assets/Thus Spoke Zarathustra cover.jpeg" alt="Thus Spoke Zarathustra">
+        </div>
+        <h3>Thus Spoke Zarathustra</h3>
+        <p>A philosophical novel on the Übermensch and eternal recurrence.</p>
+        <button class="book-read-btn" data-book="zarathustra">Read &rarr;</button>
+      </div>
+      <div class="book-card">
+        <div class="book-cover">
+          <img src="Assets/Beyond Good and Evil cover.jpeg" alt="Beyond Good and Evil">
+        </div>
+        <h3>Beyond Good and Evil</h3>
+        <p>A critique of traditional morality and the nature of truth.</p>
+        <button class="book-read-btn" data-book="beyondgoodandevil">Read &rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="reader-overlay" id="readerOverlay">
+    <div class="reader-header">
+      <button class="reader-back-btn" id="readerBackBtn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <span>Back</span>
+      </button>
+      <h2 class="reader-title" id="readerTitle">Book</h2>
+      <span class="reader-indicator" id="readerIndicator">1 / 1</span>
+    </div>
+    <div class="reader-viewport">
+      <button class="reader-arrow reader-arrow-left" id="readerPrev" aria-label="Previous">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="reader-page-container">
+        <img class="reader-cover-img" id="readerCoverImg" src="" alt="Book Cover">
+        <div class="reader-chapter" id="readerChapter">
+          <h3 class="chapter-title" id="chapterTitle"></h3>
+          <div class="chapter-text" id="chapterText"></div>
+        </div>
+      </div>
+      <button class="reader-arrow reader-arrow-right" id="readerNext" aria-label="Next">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="nietzsche.js"></script>
+</body>
+</html>

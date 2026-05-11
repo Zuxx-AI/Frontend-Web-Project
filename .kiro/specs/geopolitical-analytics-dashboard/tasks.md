@@ -1,0 +1,213 @@
+# Implementation Plan: Geopolitical Analytics Dashboard
+
+## Overview
+
+Build an interactive browser-based geopolitical analytics dashboard that visualizes governance indicators, conflict events, and corruption data on a 3D globe with D3.js chart panels and an AI-powered country brief sidebar. The implementation follows the existing Sophia Path workspace conventions (vanilla JavaScript, Three.js, dark cinematic UI) and lives in a `dashboard/` subfolder.
+
+## Tasks
+
+- [x] 1. Set up project structure and HTML layout
+  - [x] 1.1 Create `dashboard/index.html` with panel layout, CDN script tags for Three.js and D3.js, loading overlay, and dark cinematic styling references
+    - Define the HTML structure with containers: `#globe-container`, `#indicators-panel`, `#cpi-panel`, `#timeseries-panel`, `#conflict-panel`, `#ai-panel`
+    - Include CDN links for Three.js (r128+), D3.js (v7), and OrbitControls
+    - Add a loading overlay with progress indication matching the Sophia Path aesthetic
+    - _Requirements: 8.2, 8.3, 8.4_
+  - [x] 1.2 Create `dashboard/dashboard-styles.css` with dark cinematic theme
+    - Use background color `#0a0a0a` and accent colors consistent with the existing workspace
+    - Style all panel containers, the loading overlay, tooltips, and the AI chat interface
+    - Ensure responsive layout for globe and chart panels
+    - _Requirements: 8.1, 8.2_
+  - [x] 1.3 Create `dashboard/dashboard-app.js` with module scaffolding
+    - Set up the main orchestrator file with placeholder module objects: `AppState`, `DataService`, `GlobeRenderer`, `ChartManager`, `AIBriefPanel`
+    - Wire the `DOMContentLoaded` event to call `initDashboard()`
+    - _Requirements: 8.2_
+
+- [ ] 2. Implement AppState (Shared Selection State)
+  - [x] 2.1 Implement the AppState pub/sub state manager
+    - Implement `_state` object with keys: `selectedCountry`, `hoveredCountry`, `dataLoaded`, `activeDataset`, `timeRange`, `countryData`
+    - Implement `get(key)`, `set(key, value)` with listener notification
+    - Implement `on(key, callback)` and `off(key, callback)` for listener management
+    - Implement `getCountryData(code)` accessor
+    - _Requirements: 3.1, 3.2, 3.3, 3.4_
+  - [-] 2.2 Write property test for AppState pub/sub correctness
+    - **Property 6: AppState Pub/Sub Correctness**
+    - For any sequence of on/off/set operations, verify registered callbacks are invoked and removed callbacks are not
+    - **Validates: Requirements 3.1, 3.3, 3.4**
+
+- [ ] 3. Implement DataService (API Fetching & Normalization)
+  - [ ] 3.1 Implement `fetchWithRetry` with exponential backoff
+    - Retry up to 3 times with delays of 1s, 2s, 4s
+    - Include 15-second timeout per request via AbortSignal
+    - Return parsed JSON on success, throw descriptive error after all retries exhausted
+    - _Requirements: 1.1, 7.1_
+  - [ ] 3.2 Implement API fetch functions for World Bank, ACLED, and CPI
+    - `fetchWorldBankData(indicators, dateRange)` — World Bank API v2
+    - `fetchACLEDData(dateRange)` — ACLED read API with API key
+    - `fetchCPIData(year)` — Transparency International CPI dataset
+    - Execute all three in parallel via `Promise.allSettled`
+    - _Requirements: 1.1, 1.6, 7.1_
+  - [ ] 3.3 Implement `normalizeToCountryMap` to merge API responses into unified NormalizedCountryData
+    - Seed country map from World Bank data (most comprehensive list)
+    - Merge ACLED conflict events into matching country entries
+    - Merge CPI scores into matching country entries
+    - Ensure all three data sections (governance, conflict, corruption) are initialized for every country
+    - Compute `totalEvents` and `totalFatalities` from the events array
+    - _Requirements: 1.2, 1.3, 1.4, 1.5_
+  - [ ] 3.4 Implement data validation for bounds checking
+    - Validate CPI scores are in [0, 100]
+    - Validate ruleOfLaw and govEffectiveness are in [-2.5, 2.5]
+    - Validate country codes are 3-character uppercase alphabetic strings
+    - Validate event latitudes in [-90, 90] and longitudes in [-180, 180]
+    - Validate event fatalities >= 0
+    - Filter out invalid records rather than crashing
+    - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5_
+  - [ ] 3.5 Implement in-memory caching for API responses
+    - Cache successful responses keyed by request parameters
+    - Reuse cached data for subsequent requests with the same parameters
+    - _Requirements: 1.7_
+  - [ ] 3.6 Write property test for normalization data completeness
+    - **Property 3: Normalization Data Completeness**
+    - For any combination of API response data (including empty arrays), every entry shall have all three data sections initialized
+    - **Validates: Requirements 1.2, 1.3**
+  - [ ] 3.7 Write property test for conflict data consistency
+    - **Property 4: Conflict Data Consistency**
+    - For any set of ACLED events, verify `totalEvents === events.length` and `totalFatalities === sum of fatalities`
+    - **Validates: Requirements 1.4, 1.5**
+  - [ ] 3.8 Write property test for data validation bounds
+    - **Property 9: Data Validation Bounds**
+    - For any normalized country data, verify CPI in [0,100], WGI in [-2.5,2.5], codes are 3-char uppercase, coordinates in valid ranges, fatalities >= 0
+    - **Validates: Requirements 6.1, 6.2, 6.3, 6.4, 6.5**
+
+- [ ] 4. Checkpoint - Ensure all tests pass
+  - Ensure all tests pass, ask the user if questions arise.
+
+- [ ] 5. Implement GlobeRenderer (Three.js 3D Globe)
+  - [ ] 5.1 Implement globe scene setup with Earth sphere, lighting, and OrbitControls
+    - Create a textured 3D Earth sphere with ambient and directional lighting
+    - Set up OrbitControls for rotation and zoom
+    - Add the globe to the scene within `#globe-container`
+    - _Requirements: 2.1_
+  - [ ] 5.2 Implement `latLngToVector3` and `vector3ToLatLng` coordinate conversion functions
+    - Convert latitude/longitude to Three.js Vector3 on sphere surface
+    - Convert Vector3 back to latitude/longitude for reverse lookups
+    - Ensure vector length equals the specified radius within floating-point tolerance
+    - _Requirements: 2.7, 2.8_
+  - [ ] 5.3 Implement `plotConflictEvents` to place markers on the globe
+    - Create one marker per ConflictEvent at correct lat/lng position
+    - Color-code markers by event type (Battles, Violence against civilians, etc.)
+    - Position markers slightly above globe surface (radius + 0.01)
+    - Store eventId and countryCode in marker userData for raycasting
+    - _Requirements: 2.2, 2.3_
+  - [ ] 5.4 Implement raycasting for country click detection
+    - Convert screen coordinates to normalized device coordinates
+    - Cast ray from camera through mouse position
+    - Resolve Country_Code from intersection hit
+    - Return null for clicks on empty space (ocean/sky) — preserve current selection
+    - Update AppState with selected country on valid hit
+    - _Requirements: 2.4, 2.5_
+  - [ ] 5.5 Implement country highlighting and camera focus animation
+    - Visually highlight the selected country on the globe
+    - Smoothly animate camera to focus on the selected country
+    - Clear previous highlight when a new country is selected
+    - _Requirements: 2.6_
+  - [ ] 5.6 Write property test for coordinate conversion round-trip
+    - **Property 1: Coordinate Conversion Round-Trip**
+    - For any lat in [-90,90], lng in [-180,180], and positive radius, converting to Vector3 and back produces values within 0.001 degrees
+    - **Validates: Requirements 2.8**
+  - [ ] 5.7 Write property test for coordinate conversion preserves radius
+    - **Property 2: Coordinate Conversion Preserves Radius**
+    - For any valid lat, lng, and positive radius, the resulting vector magnitude equals the radius within ε < 1e-10
+    - **Validates: Requirements 2.7**
+  - [ ] 5.8 Write property test for marker-event correspondence
+    - **Property 5: Marker-Event Correspondence**
+    - For any array of ConflictEvent records, the returned marker array has the same length and each marker is at distance globeRadius + 0.01 from origin
+    - **Validates: Requirements 2.2, 2.3**
+
+- [ ] 6. Implement ChartManager (D3.js Visualizations)
+  - [ ] 6.1 Implement governance indicator bar/radar chart
+    - Render a bar or radar chart displaying World Bank governance indicators (GDP per capita, education expenditure, health expenditure, life expectancy, rule of law, government effectiveness)
+    - _Requirements: 4.1_
+  - [ ] 6.2 Implement CPI comparison horizontal bar chart
+    - Compare selected country CPI_Score against regional and global averages
+    - _Requirements: 4.2_
+  - [ ] 6.3 Implement time-series line chart for governance indicators
+    - Render a line chart for the selected indicator over the configured time range
+    - _Requirements: 4.3_
+  - [ ] 6.4 Implement conflict event type breakdown chart
+    - Render a pie or donut chart of conflict event types for the selected country
+    - _Requirements: 4.4_
+  - [ ] 6.5 Implement D3 transitions and interactive tooltips
+    - Animate transitions between old and new data when country selection changes
+    - Display interactive tooltips with data values on hover
+    - _Requirements: 4.5, 4.6_
+
+- [ ] 7. Checkpoint - Ensure all tests pass
+  - Ensure all tests pass, ask the user if questions arise.
+
+- [ ] 8. Implement AIBriefPanel (AI-Powered Country Q&A)
+  - [ ] 8.1 Implement AI chat UI with input handler and message rendering
+    - Create a chat-like interface with markdown formatting for responses
+    - Handle user question submission
+    - Clear chat history when selected country changes
+    - _Requirements: 5.4, 5.5_
+  - [ ] 8.2 Implement `buildPrompt` function with null-safe data formatting
+    - Build a prompt containing country governance, conflict, and corruption data as context
+    - Render null/undefined values as "N/A" — never include literal "null" or "undefined"
+    - Include system prompt instructing geopolitical analyst behavior
+    - _Requirements: 5.2, 5.3_
+  - [ ] 8.3 Implement LLM API integration with error handling
+    - Send prompt to configurable LLM endpoint (OpenAI-compatible `/chat/completions`)
+    - Auto-generate a summary brief when a country is selected
+    - Display "Unable to generate brief. Please try again." on API failure, preserve chat input
+    - _Requirements: 5.1, 5.6_
+  - [ ] 8.4 Write property test for AI prompt null safety
+    - **Property 7: AI Prompt Null Safety**
+    - For any NormalizedCountryData with null/undefined numeric fields, the prompt shall contain "N/A" and never "null" or "undefined"
+    - **Validates: Requirements 5.3**
+  - [ ] 8.5 Write property test for AI prompt context inclusion
+    - **Property 8: AI Prompt Context Inclusion**
+    - For any non-empty question and valid country data, the prompt contains the country name, user question, and system prompt
+    - **Validates: Requirements 5.2**
+
+- [ ] 9. Implement error handling and resilience
+  - [ ] 9.1 Implement partial data loading and "Data unavailable" placeholders
+    - When an API fails after all retries, load dashboard with partial data
+    - Display "Data unavailable" placeholder in the affected panel
+    - _Requirements: 1.6, 7.1_
+  - [ ] 9.2 Implement "Retry" button for failed API panels
+    - Allow user to manually re-fetch failed data without full page reload
+    - _Requirements: 7.2_
+  - [ ] 9.3 Implement "No data available" state for countries without data
+    - Display "No data available for [Country Name]" in chart and AI panels
+    - Still highlight the country on the globe
+    - _Requirements: 7.3_
+  - [ ] 9.4 Implement WebGL fallback detection
+    - Detect if browser does not support WebGL
+    - Display fallback message in globe container while keeping chart and AI panels functional
+    - _Requirements: 7.4_
+
+- [ ] 10. Wire all components together and implement loading flow
+  - [ ] 10.1 Implement `initDashboard` orchestrator function
+    - Show loading overlay with progress indication
+    - Fetch all data in parallel via DataService
+    - Initialize GlobeRenderer, ChartManager, and AIBriefPanel with loaded data
+    - Wire AppState listeners so country selection updates all panels
+    - Hide loading overlay and start render loop
+    - _Requirements: 8.4, 8.5, 3.2_
+  - [ ] 10.2 Wire globe click events to AppState and panel updates
+    - Connect GlobeRenderer raycasting to AppState.set('selectedCountry', code)
+    - Ensure ChartManager, AIBriefPanel, and GlobeRenderer all respond to selection changes
+    - _Requirements: 3.1, 3.2_
+
+- [ ] 11. Final checkpoint - Ensure all tests pass
+  - Ensure all tests pass, ask the user if questions arise.
+
+## Notes
+
+- Tasks marked with `*` are optional and can be skipped for faster MVP
+- Each task references specific requirements for traceability
+- Checkpoints ensure incremental validation
+- Property tests validate universal correctness properties using fast-check
+- Unit tests validate specific examples and edge cases
+- The project uses vanilla JavaScript (no build step) with Three.js and D3.js loaded from CDN
+- All files live in the `dashboard/` subfolder following the existing `book/` pattern
